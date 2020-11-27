@@ -1,0 +1,41 @@
+{
+    "name": "protractor-test-project",
+    "version": "0.0.0",
+    "keywords": [
+        "cucumberjs",
+        "bdd",
+        "setup",
+        "bootstrap",
+        "tdd",
+        "test",
+        "testing",
+        "gherkin",
+        "cucumber"
+    ],
+    "scripts": {
+        "tsc": "tsc",
+        "pretest": "npm run tsc",
+        "test": "./protractor output/conf.js"
+    },
+    "private": true,
+    "dependencies": {
+        "@types/jasmine": "2.8.7",
+        "@types/jasminewd2": "2.0.3",
+        "@types/node": "^12.11.1",
+        "jasmine-core": "~3.6.0",
+        "jasmine-spec-reporter": "~5.0.0",
+        "protractor": "~7.0.0",
+        "ts-node": "~8.3.0",
+        "tslint": "~6.1.0",
+        "typescript": "~4.0.2",
+        "log4js": "6.1.2",
+        "cucumber": "6.0.5",
+        "@types/cucumber": "4.0.4",
+        "protractor-cucumber-framework": "6.2.1",
+        "cucumber-html-reporter": "5.2.0",
+        "chai": "4.2.0",
+        "chai-as-promised": "7.1.1",
+        "mkdirp": "1.0.4"
+    },
+    "devDependencies": {}
+}
