@@ -83,20 +83,11 @@ COPY ./jars/requirement.txt /tmp/requirements.txt
 RUN python3.8 -m pip install --upgrade pip && \
     pip install --requirement /tmp/requirements.txt
 
-### Install node js
+### Install node js and Typescript
 RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
     sudo apt-get install -y nodejs
-
-### install & configure protractor 
-RUN npm install -g protractor
-RUN webdriver-manager update --versions.chrome=86.0.4240.22
 RUN npm install -g typescript
-RUN node --version | npm --version | protractor --version
-
-# COPY ./jars/package.json /headless/Documents/DockerProtractor/package.json
-# WORKDIR /headless/Documents/DockerProtractor
-# RUN npm install
-
+RUN node --version | npm --version 
 
 RUN apt-get install -y build-essential && \
     apt-get -y auto-remove
