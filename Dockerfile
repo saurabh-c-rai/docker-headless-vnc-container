@@ -69,10 +69,8 @@ USER 0
 ### Install sudo and curl for later use
 RUN apt-get update && \
     apt-get -y install sudo && \
-    apt install -y curl
-
-### Install a Java 8 and gcj-jdk
-RUN apt-get install -y openjdk-8-jdk
+    apt install -y curl && \
+    apt-get install unzip
 
 ### Install pip for python
 RUN sudo apt install -y python3-pip && \
@@ -89,8 +87,29 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - && \
 RUN npm install -g typescript
 RUN node --version | npm --version 
 
+### Install a Java 8 and gcj-jdk
+WORKDIR /usr/lib/jvm
+RUN $INST_SCRIPTS/java.sh
+ENV JAVA_HOME="/usr/lib/jvm/jdk-11.0.9.1+1"
+ENV PATH="/usr/lib/jvm/jdk-11.0.9.1+1/bin:${PATH}"
+
+### Download selenium server, geckodriver and chromedriver
+WORKDIR /usr/lib/webdrivers
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.28.0/geckodriver-v0.28.0-linux64.tar.gz 
+RUN wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+RUN wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar
+
+### Unzip drivers and add them to path
+RUN tar xfvz geckodriver-v0.28.0-linux64.tar.gz --directory /usr/lib/webdrivers
+RUN unzip chromedriver_linux64.zip
+ENV GECKO_PATH="/usr/lib/webdrivers/"
+ENV PATH="${GECKO_PATH}:${PATH}"
+
+### Remove dependencies that are not required
 RUN apt-get install -y build-essential && \
     apt-get -y auto-remove
+
+### Switch back to non root users
 USER 1000
 
 ### Copy required files
